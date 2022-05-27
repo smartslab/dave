@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+    <node ns="caracara/stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" output="screen"> 
+    	<param name="approximate_sync" value="true"/> 
+    	<param name="queue_size" value="10"/> 
+    
+    	<remap from="left/image_raw" to="/caracara/cameraleft/camera_image"/> 
+    	<remap from="right/image_raw" to="/caracara/cameraright/camera_image"/> 
+    	<remap from="right/camera_info" to="/caracara/cameraright/camera_info"/> 
+    	<remap from="left/camera_info" to="/caracara/cameraleft/camera_info"/> 
+    </node>
+</launch>

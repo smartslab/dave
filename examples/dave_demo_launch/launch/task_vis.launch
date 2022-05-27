@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="x" default="0"/>
+    <arg name="y" default="0"/>
+    <arg name="z" default="0"/>
+    <arg name="namespace" default="taskvisualizer"/>
+    
+    <param name="/$(arg namespace)/robot_description"
+           command="$(find xacro)/xacro '$(find dave_snippets)/urdf/tasksnippets.xacro'
+		    namespace:=$(arg namespace)" />
+		    
+    <node name="urdf_spawner" pkg="uuv_descriptions" type="spawn_model" respawn="false" output="screen"
+          args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -model $(arg namespace) -param /$(arg namespace)/robot_description"/>
+    
+</launch>

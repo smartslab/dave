@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!-- 
+     All rights reserved.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<robot name="taskinterface" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+  <xacro:arg name="debug" default="0"/>
+  <xacro:arg name="namespace" default="taskvisualizer"/>
+  <xacro:arg name="inertial_reference_frame" default="world"/>
+  <xacro:property name="namespace" value="taskvisualizer"/>
+  <xacro:include filename="$(find dave_snippets)/urdf/tasksnippets.xacro"/>
+  
+  <gazebo reference="taskvisualizer">
+      <is_static>true</is_static>
+  </gazebo>
+  
+  <link name="world"/>
+  
+  <!-- Options for color are: Red, Blue, Yellow, Green, White, Purple, Turquoise. Gazebo stores materials at 
+  /usr/share/gazebo-11/media/materials/scripts/gazebo.material -->
+  
+  <xacro:task_vis 
+    x="0" 
+    y="-8" 
+    z="-17" 
+    color="White" 
+    number="1">
+  </xacro:task_vis>
+  <xacro:task_vis 
+    x="-15" 
+    y="-8" 
+    z="-17" 
+    color="White" 
+    number="2">
+  </xacro:task_vis>
+  <xacro:task_vis 
+    x="15" 
+    y="-8" 
+    z="-17" 
+    color="White" 
+    number="3">
+  </xacro:task_vis>
+  <xacro:task_vis 
+    x="0" 
+    y="-13" 
+    z="-30" 
+    color="White" 
+    number="4">
+  </xacro:task_vis>
+  <xacro:task_vis 
+    x="20.5" 
+    y="-13" 
+    z="-30"  
+    color="White" 
+    number="5">
+  </xacro:task_vis>
+  <xacro:task_vis 
+    x="-20.5" 
+    y="-13" 
+    z="-30"  
+    color="White" 
+    number="6">
+  </xacro:task_vis>
+  <xacro:task_vis 
+    x="0" 
+    y="-8" 
+    z="-44" 
+    color="White" 
+    number="7">
+  </xacro:task_vis>
+  <xacro:task_vis 
+    x="-15" 
+    y="-8" 
+    z="-44" 
+    color="White" 
+    number="8">
+  </xacro:task_vis>
+  <xacro:task_vis 
+    x="15" 
+    y="-8" 
+    z="-44" 
+    color="White" 
+    number="9">
+  </xacro:task_vis>
+
+  
+</robot>

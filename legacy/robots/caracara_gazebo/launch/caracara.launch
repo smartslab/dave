@@ -7,66 +7,19 @@
     <arg name="velocity_control" default="true"/>
     <arg name="debug" default="false"/>
     <arg name="verbose" default="false"/>
-    <arg name="x" default="4"/>
-    <arg name="y" default="4"/>
-    <arg name="z" default="-93"/>
+    <arg name="x" default="3"/>
+    <arg name="y" default="-25"/>
+    <arg name="z" default="-30"/>
     <arg name="roll" default="0"/>
     <arg name="pitch" default="0"/>
     <arg name="yaw" default="-1.8"/>
     
-    <!-- use Gazebo's empty_world.launch with uuv_dave_ocean_waves.world -->
-    <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(arg world_name)"/>
-        <arg name="paused" value="$(arg paused)"/>
-        <arg name="use_sim_time" value="true"/>
-        <arg name="gui" value="$(arg gui)"/>
-        <arg name="headless" value="false"/>
-        <arg name="debug" value="$(arg debug)"/>
-        <arg name="verbose" value="$(arg verbose)"/>
-    </include>
-
-
-    <!-- use ned frame north east down -->
-    <include file="$(find uuv_assistants)/launch/publish_world_ned_frame.launch"/>
-
-    <!-- world models -->
-    <node name="publish_world_models"
-        pkg="uuv_assistants"
-        type="publish_world_models.py"
-        output="screen">
-        <rosparam subst_value="true">
-            meshes:
-                heightmap:
-                    mesh: package://uuv_gazebo_worlds/models/sand_heightmap/meshes/heightmap.dae
-                    model: sand_heightmap
-                seafloor:
-                    plane: [2000, 2000, 0.1]
-                    pose:
-                        position: [0, 0, -100]
-                north:
-                    plane: [0.1, 2000, 100]
-                    pose:
-                        position: [1000, 0, -50]
-                south:
-                    plane: [0.1, 2000, 100]
-                    pose:
-                        position: [-1000, 0, -50]
-                west:
-                    plane: [2000, 0.1, 100]
-                    pose:
-                        position: [0, -1000, -50]
-                east:
-                    plane: [2000, 0.1, 100]
-                    pose:
-                        position: [0, 1000, -50]
-        </rosparam>
-    </node>
-
-     <param name="/$(arg namespace)/robot_description"
+    <param name="/$(arg namespace)/robot_description"
            command="$(find xacro)/xacro '$(find caracara_gazebo)/urdf/caracara_gazebo.xacro' --inorder
 		    debug:=$(arg debug)
 		    namespace:=$(arg namespace)
 		    inertial_reference_frame:=world" />
+		    
      <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
     <node name="urdf_spawner" pkg="uuv_descriptions" type="spawn_model" respawn="false" output="screen"
           args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -model $(arg namespace) -param /$(arg namespace)/robot_description"/>
@@ -78,4 +31,12 @@
       <remap from="robot_description" to="/$(arg namespace)/robot_description"/>
     </node>
 
+    
+
+  <include file="$(find uuv_assistants)/launch/message_to_tf.launch">
+    <arg name="namespace" value="$(arg namespace)"/>
+    <arg name="world_frame" value="world"/>
+    <arg name="child_frame_id" value="/$(arg namespace)/base_link"/>
+  </include>
+        
 </launch>

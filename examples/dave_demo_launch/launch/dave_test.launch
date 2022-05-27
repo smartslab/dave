@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="gui" default="true"/>
+    <arg name="paused" default="false"/>
+    <arg name="world_name" default="$(find dave_worlds)/worlds/dave_ocean_waves.world"/>
+    <arg name="namespace" default="rexrov"/>
+    <arg name="set_timeout" default="false"/>
+    <arg name="timeout" default="0.0"/>
+    <arg name="velocity_control" default="true"/>
+    <arg name="joy_id" default="0"/>
+ 
+    <!-- use Gazebo's empty_world.launch with dave_ocean_waves.world -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world_name)"/>
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="$(arg gui)"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+        <arg name="verbose" value="false"/>
+    </include>
+
+
+    <!-- use ned frame north east down -->
+    <include file="$(find uuv_assistants)/launch/publish_world_ned_frame.launch"/> 
+
+    <!-- world models -->
+    <node name="publish_world_models"
+        pkg="uuv_assistants"
+        type="publish_world_models.py"
+        output="screen">
+        <rosparam subst_value="true">
+            meshes:
+                heightmap:
+                    mesh: package://uuv_gazebo_worlds/models/sand_heightmap/meshes/heightmap.dae
+                    model: sand_heightmap
+                seafloor:
+                    plane: [2000, 2000, 0.1]
+                    pose:
+                        position: [0, 0, -100]
+                north:
+                    plane: [0.1, 2000, 100]
+                    pose:
+                        position: [1000, 0, -50]
+                south:
+                    plane: [0.1, 2000, 100]
+                    pose:
+                        position: [-1000, 0, -50]
+                west:
+                    plane: [2000, 0.1, 100]
+                    pose:
+                        position: [0, -1000, -50]
+                east:
+                    plane: [2000, 0.1, 100]
+                    pose:
+                        position: [0, 1000, -50]
+        </rosparam>
+    </node>
+
+    <!-- timeout -->
+    <group if="$(arg set_timeout)">
+        <include file="$(find uuv_assistants)/launch/set_simulation_timer.launch">
+            <arg name="timeout" value="$(arg timeout)"/>
+        </include>
+    </group>
+
+    <!-- rexrov robot -->
+    <!--<include file="$(find uuv_descriptions)/launch/upload_rexrov.launch">
+        <arg name="namespace" value="rexrov"/>
+        <arg name="x" value="0"/>
+        <arg name="y" value="-25"/>
+        <arg name="z" value="-30"/>
+        <arg name="yaw" value="-1.8"/>
+    </include>-->
+    
+    <!--<include file="$(find uuv_descriptions)/launch/stereo.launch"/> -->
+    <!--
+    <group ns="rexrov">
+        <include file="$(find rtabmap_ros)/launch/rtabmap.launch"/>
+    </group>-->
+
+    <!-- caracara robot  -->
+    <!--<include file="$(find caracara_gazebo)/launch/caracara.launch">
+        <arg name="namespace" value="caracara"/>
+    </include>-->
+    <!--
+    <include file="$(find caracara_gazebo)/launch/stereo.launch"/> -->
+
+    <!-- Velocity teleop (UUV stays in position when joystick is not used)  -->
+    <!--<include if="$(arg velocity_control)" file="$(find uuv_control_cascaded_pid)/launch/joy_velocity.launch">
+        <arg name="uuv_name" value="rexrov" />
+        <arg name="model_name" value="rexrov" />
+        <arg name="joy_id" value="$(arg joy_id)"/>
+        <arg name="deadman_button" value="7"/>
+    </include>-->
+    
+    <!-- Velocity teleop (UUV stays in position when joystick is not used)  -->
+    <!--<include if="$(arg velocity_control)" file="$(find uuv_control_cascaded_pid)/launch/joy_velocity.launch">
+        <arg name="uuv_name" value="caracara" />
+        <arg name="model_name" value="caracara" />
+        <arg name="joy_id" value="$(arg joy_id)"/>
+        <arg name="deadman_button" value="4"/>
+    </include>-->
+    
+    <!-- Add the bluerov2 vehicle to the world simulation (namespace: bluerov2) -->
+    <include file="$(find bluerov2_description)/launch/upload_bluerov2.launch">
+        <arg name="namespace" value="bluerov2"/>
+        <arg name="x" value="-3"/>
+        <arg name="y" value="-25"/>
+        <arg name="z" value="-30"/>
+        <arg name="yaw" value="-1.8"/>
+    </include>
+    
+    <include file="$(find bluerov2_description)/launch/stereo.launch"/>
+        
+    <group ns="bluerov2">
+          <include file="$(find rtabmap_ros)/launch/rtabmap.launch"/>
+    </group>
+          
+    <!-- Velocity teleop (UUV stays in position when joystick is not used)  -->
+    <include if="$(arg velocity_control)" file="$(find uuv_control_cascaded_pid)/launch/joy_velocity.launch">
+        <arg name="uuv_name" value="bluerov2" />
+        <arg name="model_name" value="bluerov2" />
+        <arg name="joy_id" value="$(arg joy_id)"/>
+        <arg name="deadman_button" value="6"/>
+        <arg name="gain_yaw" value="1"/>
+        <arg name="axis_roll" value="-1"/>
+        <arg name="axis_pitch" value="-1"/>
+        <arg name="gain_roll" value="0"/>
+        <arg name="gain_pitch" value="0"/>
+    </include>
+    
+    <!--<node pkg="robot_localization" type="ekf_localization_node" name="bluerov2_ekf" clear_params="true">        
+        <rosparam command="load" file="$(find robot_localization)/params/ekf_template.yaml" />
+        <remap from="odometry/filtered" to="odom"/>        
+    </node>-->
+    
+    <!--<node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+      <param name="output_frame" value="odom"/>
+      <param name="base_footprint_frame" value="bluerov2/base_link"/>
+      <param name="freq" value="30.0"/>
+      <param name="sensor_timeout" value="1.0"/>
+      <param name="odom_used" value="false"/>
+      <param name="imu_used" value="true"/>
+      <param name="vo_used" value="true"/>
+      <param name="debug" value="false"/>
+      <param name="self_diagnose" value="false"/>
+      <remap from="vo" to="bluerov2/rtabmap/odomrtab" />
+      <remap from="imu_data" to="bluerov2/imu" />-->
+      <!--<remap from="robot_pose_ekf/odom_combined" to="odom"/>-->
+    <!--</node>-->
+    
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find dave_demo_launch)/rviz/pointcloud.rviz" />
+     
+    <!-- vessel -->
+    <node name="vessel" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find dave_object_models)/models/vessel/model.sdf -sdf -model vessel -z -30">
+    </node> 
+    
+    <!-- task markers -->
+    <!--<include file="$(find dave_demo_launch)/launch/make_tasks.launch">
+        <arg name="namespace" value="taskvisualizer"/>
+    </include>-->
+
+</launch>

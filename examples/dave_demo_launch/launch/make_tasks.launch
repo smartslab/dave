@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="namespace" default="taskvisualizer"/>
+  <arg name="debug" default="false"/>
+     <param name="/$(arg namespace)/robot_description"
+            command="$(find xacro)/xacro '$(find dave_snippets)/urdf/ui_gazebo.xacro'
+		             debug:=$(arg debug)
+                     namespace:=$(arg namespace)
+                     inertial_reference_frame:=world" />
+                     
+  <node name="urdf_spawner_tasks" pkg="uuv_descriptions" type="spawn_model" respawn="false" output="screen"
+          args="-urdf -x 0 -y 0 -z 0 -R 0 -P 0 -Y 0 -model $(arg namespace) -param /$(arg namespace)/robot_description"/>
+                     
+  <!-- A joint state publisher plugin already is started with the model,
+	 no need to use the default joint state publisher. -->
+    <!-- Robot state publisher subscribes to the custom joint state publisher -->
+    <node name="robot_state_publisher_tasks" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen">
+      <remap from="robot_description" to="/$(arg namespace)/robot_description"/>
+    </node>
+    
+</launch>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <xacro:include filename="$(find uuv_descriptions)/urdf/common.urdf.xacro"/>
+  <gazebo>
+    <material name="myblue">
+          <color rgba="0.0 0.0 0.8 1.0"/>
+          <shader type='normal_map_object_space'/>
+    </material>
+  </gazebo>
+  
+  <xacro:macro name="task_vis" params="x y z color number">
+    
+    <link name="taskvisualizer/task_${number}">
+      <xacro:no_inertial>
+      </xacro:no_inertial>
+      <visual>
+        <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius=".2"/>
+          <!-- <material name="${color}"/> -->
+        </geometry>
+      </visual>
+      <static>1</static>
+    </link>
+    
+    <gazebo reference="task_vis/task_${number}">
+      <is_static>true</is_static>
+    </gazebo>
+    <!--<gazebo reference="taskvisualizer/task_${number}">
+      <material value="Gazebo/${color}Glow"/>
+    </gazebo> -->
+    
+    <joint name="taskvisualizer/task_${number}_joint" type="fixed">
+      <parent link="world"/>
+      <child link="taskvisualizer/task_${number}"/>
+    </joint>
+    
+    <gazebo reference='taskvisualizer/task_${number}'>
+    <visual>
+      <plugin name="gazebo_ros_model_color" filename="libgazebo_ros_model_color.so">
+        <robotNamespace>/taskvisualizer/task_${number}</robotNamespace> <!-- Robot namespace -->
+        <serviceName>/task${number}_color</serviceName> <!-- Service topic name-->
+        <color>1.0 1.0 1.0 1.0</color> <!-- Default Color -->
+      </plugin>
+    </visual>
+  </gazebo>
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/taskvisualizer/task_${number}</robotNamespace>
+    </plugin>
+  </gazebo>
+    
+  </xacro:macro>   
+
+</robot>
