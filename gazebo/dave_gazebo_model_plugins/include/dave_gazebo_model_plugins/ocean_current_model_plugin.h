@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// \file TransientCurrentPlugin.hh
+/// \file ocean_current_model_plugin.h
 /// \brief Plugin for the transient current plugin to publish vehicle depth
 
 #ifndef OCEAN_CURRENT_MODEL_PLUGIN_H_
@@ -36,6 +36,7 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <mutex>
 #include "ros/callback_queue.h"
 #include "ros/subscribe_options.h"
 
@@ -107,6 +108,9 @@ namespace gazebo
 
     /// \brief A thread the keeps running the rosQueue
     private: std::thread databaseSubQueueThread;
+
+    /// \brief A thread mutex to lock
+    private: std::mutex lock_;
 
     /// \brief Period after which we should publish a message via ROS.
     private: gazebo::common::Time rosPublishPeriod;

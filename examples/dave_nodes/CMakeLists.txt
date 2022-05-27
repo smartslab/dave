@@ -37,8 +37,19 @@ install(DIRECTORY launch
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
         PATTERN "*~" EXCLUDE)
 
+# for config
+install(DIRECTORY config
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+        PATTERN "*~" EXCLUDE)
+
 # for Python scripts
 catkin_install_python(PROGRAMS
   src/simple_box_motion.py
   src/joy_thrusterop.py
+  src/dvl_gradient_plot.py
+  src/dvl_state_and_gradient_dsl.py
+  src/dvl_state_and_gradient_uuvsim.py
+  src/bimanual_simple_demo.py
+  src/teleport_vehicle.py
+  src/bimanual_integrated_world.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

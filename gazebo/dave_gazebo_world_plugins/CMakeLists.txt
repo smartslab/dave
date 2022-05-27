@@ -44,15 +44,19 @@ message(STATUS "GAZEBO_MSG_INCLUDE_DIRS = " ${GAZEBO_MSG_INCLUDE_DIRS})
 file(GLOB msgs msgs/*.proto)
 
 catkin_package(
-	INCLUDE_DIRS
+  INCLUDE_DIRS
     include
-    ${CMAKE_CURRENT_BINARY_DIR} # for generated messages
+    # for generated Protobuf messages. Export parent dir (build/), so that
+    # the #include <*.pb.h> line has the package name, consistent between
+    # catkin config --install and --no-install.
+    ${CMAKE_CURRENT_BINARY_DIR}/..
     ${GAZEBO_MSG_INCLUDE_DIRS}
-	LIBRARIES
+  LIBRARIES
+    dave_gazebo_world_plugins_msgs
     dave_ocean_current_world_plugin
-	CATKIN_DEPENDS
-		gazebo_dev
-		gazebo_msgs
+  CATKIN_DEPENDS
+    gazebo_dev
+    gazebo_msgs
     gazebo_ros
     roscpp
 )
@@ -70,7 +74,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include
 link_directories(${catkin_LIBRARY_DIRS}
                  ${GAZEBO_LIBRARY_DIRS}
                  ${GAZEBO_MSG_INCLUDE_DIRS}
-                 ${CMAKE_CURRENT_BINARY_DIR}/msgs
+                 ${CMAKE_CURRENT_BINARY_DIR}
 #                ...
 )
 
@@ -113,12 +117,6 @@ target_link_libraries(dave_bathymetry_world_plugin
 )
 add_dependencies(dave_bathymetry_world_plugin ${catkin_EXPORTED_TARGETS})
 list(APPEND DAVE_GAZEBO_WORLD_PLUGINS_LIST dave_bathymetry_world_plugin)
-
-add_library(uuv_mating_plugin SHARED src/uuv_mating.cc)
-target_link_libraries(uuv_mating_plugin
-  ${catkin_LIBRARIES}
-  ${GAZEBO_LIBRARIES}
-)
 
 # Plugin compile directions
 
