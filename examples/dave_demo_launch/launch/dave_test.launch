@@ -128,13 +128,17 @@
         <arg name="axis_pitch" value="-1"/>
         <arg name="gain_roll" value="0"/>
         <arg name="gain_pitch" value="0"/>
+        <arg name="gain_x" default="1"/>
+        <arg name="gain_y" default="1"/>
+        <arg name="gain_z" default="10"/>
     </include>
     
-    <!--<node pkg="robot_localization" type="ekf_localization_node" name="bluerov2_ekf" clear_params="true">        
+    <node pkg="robot_localization" type="ekf_localization_node" name="bluerov2_ekf" clear_params="true">        
         <rosparam command="load" file="$(find robot_localization)/params/ekf_template.yaml" />
-        <remap from="odometry/filtered" to="odom"/>        
-    </node>-->
+        <remap from="odometry/filtered" to="bluerov2/odom_combined"/>        
+    </node>
     
+    <!--Below only outputs poseStamped, need Odometry for control-->
     <!--<node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
       <param name="output_frame" value="odom"/>
       <param name="base_footprint_frame" value="bluerov2/base_link"/>
@@ -146,9 +150,9 @@
       <param name="debug" value="false"/>
       <param name="self_diagnose" value="false"/>
       <remap from="vo" to="bluerov2/rtabmap/odomrtab" />
-      <remap from="imu_data" to="bluerov2/imu" />-->
-      <!--<remap from="robot_pose_ekf/odom_combined" to="odom"/>-->
-    <!--</node>-->
+      <remap from="imu_data" to="bluerov2/imu" />
+      <remap from="/robot_pose_ekf/odom_combined" to="bluerov2/odom_combined"/>
+    </node>-->
     
     <node type="rviz" name="rviz" pkg="rviz" args="-d $(find dave_demo_launch)/rviz/pointcloud.rviz" />
      
