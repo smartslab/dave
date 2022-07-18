@@ -63,24 +63,9 @@
             <arg name="timeout" value="$(arg timeout)"/>
         </include>
     </group>
-
-    <!-- Add the bluerov2 vehicle to the world simulation (namespace: bluerov2) -->
-    <include file="$(find bluerov2_description)/launch/upload_bluerov2.launch">
-        <arg name="namespace" value="bluerov2"/>
-        <arg name="x" value="-3"/>
-        <arg name="y" value="-25"/>
-        <arg name="z" value="-30"/>
-        <arg name="yaw" value="-1.8"/>
-        <!--<arg name="use_ned_frame" value="true"/>-->
-    </include>
     
-    <!-- Velocity teleop (UUV stays in position when joystick is not used)  -->
-    <include if="$(arg velocity_control)" file="$(find uuv_control_cascaded_pid)/launch/joy_velocity.launch">
-        <arg name="uuv_name" value="bluerov2" />
-        <arg name="model_name" value="bluerov2" />
-        <arg name="joy_id" value="$(arg joy_id)"/>
-        <arg name="deadman_button" value="6"/>
-    </include> 
-    
-
+    <!-- vessel -->
+    <node name="vessel" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find dave_object_models)/models/vessel/model.sdf -sdf -model vessel -z -30">
+    </node> 
 </launch>

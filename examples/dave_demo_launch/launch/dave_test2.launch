@@ -115,10 +115,11 @@
         
     <group ns="bluerov2">
           <include file="$(find rtabmap_ros)/launch/rtabmap.launch"/>
+          <node pkg="bluerovsim" type="odom_transformer.py" name="odom_transformer"/>
     </group>
           
     <!-- Velocity teleop (UUV stays in position when joystick is not used)  -->
-    <include if="$(arg velocity_control)" file="$(find uuv_control_cascaded_pid)/launch/joy_velocity.launch">
+    <!--<include if="$(arg velocity_control)" file="$(find uuv_control_cascaded_pid)/launch/joy_velocity.launch">
         <arg name="uuv_name" value="bluerov2" />
         <arg name="model_name" value="bluerov2" />
         <arg name="joy_id" value="$(arg joy_id)"/>
@@ -131,16 +132,35 @@
         <arg name="gain_x" default="10000"/>
         <arg name="gain_y" default="10000"/>
         <arg name="gain_z" default="10000"/>
+    </include>-->
+    
+    
+      
+    
+    <include file="$(find uuv_trajectory_control)/launch/rov_ua_pid_controller.launch">
+        <arg name="uuv_name" value="bluerov2"/>
+        <arg name="model_name" value="bluerov2"/>
     </include>
     
-   <node pkg="robot_localization" type="ekf_localization_node" name="bluerov2_ekf" clear_params="true">        
+    <node pkg="robot_localization" type="ekf_localization_node" name="bluerov2_ekf" clear_params="true">        
         <rosparam command="load" file="$(find robot_localization)/params/bluerov_ekf_template.yaml" />
         <remap from="odometry/filtered" to="bluerov2/odom_combined"/>        
     </node>
     
-    <!--<node type="rviz" name="rviz" pkg="rviz" args="-d $(find dave_demo_launch)/rviz/pointcloud.rviz" />-->
+    <node type="rviz" name="rviz" pkg="rviz" args="-d $(find dave_demo_launch)/rviz/pointcloud.rviz" />
+   
     
-         
+    <!--Start Circular Trajectory-->
+    <include file="$(find uuv_control_utils)/launch/start_circular_trajectory.launch">
+        <arg name="uuv_name" value="bluerov2"/>
+        <arg name="radius" value="5"/>
+        <arg name="max_forward_speed" value="1"/>
+        <arg name="center_x" value="-5"/>
+        <arg name="center_y" value="-30"/>
+        <arg name="center_z" value="-30"/>
+    </include>
+    
+    
     <!-- vessel -->
     <node name="vessel" pkg="gazebo_ros" type="spawn_model"
           args="-file $(find dave_object_models)/models/vessel/model.sdf -sdf -model vessel -z -30">
