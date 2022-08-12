@@ -51,7 +51,7 @@
         <geometry>
           <mesh>
             <uri>/home/marina-ruediger/sim_ws/src/dave/models/dave_object_models/models/vessel/vessel.stl</uri>
-            <scale>1 1 1</scale>
+            <scale>2 2 2</scale>
           </mesh>
         </geometry>
         <surface>

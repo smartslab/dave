@@ -112,11 +112,12 @@
     </include>
     
     <include file="$(find bluerov2_description)/launch/stereo.launch"/>
+    <include file="$(find rtabmap_ros)/launch/rtabmap.launch"/>
         
     <group ns="bluerov2">
-          <include file="$(find rtabmap_ros)/launch/rtabmap.launch"/>
-          <node pkg="bluerovsim" type="odom_transformer.py" name="odom_transformer"/>
-          <node pkg="bluerovsim" type="task_manager.py" name="task_manager"/>
+          
+          <node pkg="task_allocation_ros" type="odom_transformer.py" name="odom_transformer"/>
+          <node pkg="task_allocation_ros" type="task_manager.py" name="task_manager"/>
     </group>
           
     <!-- Velocity teleop (UUV stays in position when joystick is not used)  -->
