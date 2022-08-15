@@ -3,13 +3,13 @@
     <arg name="gui" default="true"/>
     <arg name="paused" default="false"/>
     <arg name="world_name" default="$(find uuv_dave)/worlds/uuv_dave_ocean_waves.world"/>
-    <arg name="namespace" default="caracara"/>
+    <arg name="namespace" default="bernard"/>
     <arg name="velocity_control" default="true"/>
     <arg name="debug" default="false"/>
     <arg name="verbose" default="false"/>
-    <arg name="x" default="3"/>
+    <arg name="x" default="0"/>
     <arg name="y" default="-25"/>
-    <arg name="z" default="-30"/>
+    <arg name="z" default="-35"/>
     <arg name="roll" default="0"/>
     <arg name="pitch" default="0"/>
     <arg name="yaw" default="-1.8"/>
