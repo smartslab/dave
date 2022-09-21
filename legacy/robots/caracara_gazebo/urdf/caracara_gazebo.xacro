@@ -18,14 +18,14 @@
 <robot name="caracara" xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
   <xacro:arg name="debug" default="0"/>
-  <xacro:arg name="namespace" default="caracara"/>
+  <xacro:arg name="namespace" default="bernard"/>
   <xacro:arg name="inertial_reference_frame" default="world"/>
-  <xacro:property name="namespace" value="caracara"/>
+  <xacro:property name="namespace" value="bernard"/>
 
   <!-- "Dummy" base link to eliminate root link inertia warning --> 
-  <link name="$(arg namespace)/base_link"/>
+  <!--<link name="$(arg namespace)/base_link"/>-->
 
-  <link name="$(arg namespace)/caracara_link">
+  <link name="$(arg namespace)/base_link">
     <!-- Mass and inertia from the Saab Caracara technical specifications:
          https://www.saabseaeye.com/solutions/underwater-vehicles/caracara -->
     <inertial>
@@ -51,11 +51,11 @@
   </link>
 
   <!-- Attach caracara_link to the dummy base link -->
-  <joint name="$(arg namespace)/caracara_base_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>  <!-- X-fwd, Y-lft, Z-up (ick!) -->
-    <parent link="$(arg namespace)/base_link"/>
+  <!--<joint name="$(arg namespace)/caracara_base_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>-->  <!-- X-fwd, Y-lft, Z-up (ick!) -->
+    <!--<parent link="$(arg namespace)/base_link"/>
     <child link="$(arg namespace)/caracara_link"/>
-  </joint>
+  </joint>-->
 
  <gazebo>
    <plugin name="uuv_plugin" filename="libuuv_underwater_object_ros_plugin.so">
@@ -119,7 +119,7 @@
  <xacro:property name="prop_mesh_file" value="file://$(find eca_a9_description)/mesh/eca_a9_propeller.dae"/>
  <xacro:include filename="$(find uuv_sensor_ros_plugins)/urdf/camera_snippets.xacro"/>
  <xacro:include filename="$(find uuv_sensor_ros_plugins)/urdf/sensor_snippets.xacro"/>
- <xacro:include filename="$(find gazebo_sensors_tutorial)/robot/sensors/_d415.urdf.xacro"/>
+ <!--<xacro:include filename="$(find gazebo_sensors_tutorial)/robot/sensors/_d415.urdf.xacro"/>-->
 
   <!-- Thruster joint and link snippet
        Wrapper for the the thruster_module_first_order_basic_fcn_macro
@@ -167,7 +167,7 @@
   <xacro:default_imu_macro
     namespace="$(arg namespace)"
     parent_link="$(arg namespace)/base_link"
-    inertial_reference_frame="$(arg inertial_reference_frame)">
+    inertial_reference_frame="world">
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </xacro:default_imu_macro>
         
@@ -181,33 +181,33 @@
   </xacro:default_camera> 
   
   <!-- Mount a RealSense -->
-  <xacro:include filename="$(find gazebo_sensors_tutorial)/robot/sensors/_d415.urdf.xacro"/>
+  <!--<xacro:include filename="$(find gazebo_sensors_tutorial)/robot/sensors/_d415.urdf.xacro"/>
   
   <xacro:sensor_d415 name="$(arg namespace)/camera_depth" parent="$(arg namespace)/base_link" flag_color="0" flag_ir="0" flag_depth="1" updaterate="0.2">
-		<origin xyz="0.0 0 0.4" rpy="0 0 0" /> <!-- result from calib -->
-  </xacro:sensor_d415>
+		<origin xyz="0.0 0 0.4" rpy="0 0 0" /> 
+  </xacro:sensor_d415>-->
   
   
   <!-- Mount a Pose 3D sensor. -->
-  <xacro:default_pose_3d_macro
+  <!--<xacro:default_pose_3d_macro
     namespace="$(arg namespace)"
     parent_link="$(arg namespace)/base_link"
-    inertial_reference_frame="$(arg inertial_reference_frame)" />  
+    inertial_reference_frame="$(arg inertial_reference_frame)" />  -->
 
 
  <!-- Default joint state publisher -->
- <gazebo>
+ <!--<gazebo>
    <plugin name="uuv_joint_state_publisher" filename="libuuv_joint_state_publisher.so">
      <robotNamespace>$(arg namespace)</robotNamespace>
      <updateRate>50</updateRate>
    </plugin>
- </gazebo>
+ </gazebo>-->
  
-  <include file="$(find uuv_assistants)/launch/message_to_tf.launch">
+  <!--<include file="$(find uuv_assistants)/launch/message_to_tf.launch">
     <arg name="namespace" value="$(arg namespace)"/>
     <arg name="world_frame" value="world"/>
     <arg name="child_frame_id" value="/$(arg namespace)/base_link"/>
-  </include>
+  </include>-->
         
  
 </robot>

@@ -8,7 +8,6 @@ Panels:
         - /Status1
         - /MapCloud1
         - /RobotModel1
-        - /RobotModel1/Status1
       Splitter Ratio: 0.5
     Tree Height: 549
   - Class: rviz/Selection
@@ -29,7 +28,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: MapCloud
+    SyncSource: ""
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -66,11 +65,11 @@ Visualization Manager:
       Class: rtabmap_ros/MapCloud
       Cloud decimation: 4
       Cloud from scan: false
-      Cloud max depth (m): 999
+      Cloud max depth (m): 35
       Cloud min depth (m): 0
       Cloud voxel size (m): 0.009999999776482582
       Color: 255; 255; 255
-      Color Transformer: RGB8
+      Color Transformer: ""
       Download graph: false
       Download map: false
       Download namespace: bluerov/rtabmap
@@ -83,7 +82,7 @@ Visualization Manager:
       Name: MapCloud
       Node filtering angle (degrees): 30
       Node filtering radius (m): 0
-      Position Transformer: XYZ
+      Position Transformer: ""
       Queue Size: 10
       Size (Pixels): 3
       Size (m): 0.5
@@ -108,6 +107,26 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        bluerov2/camerabackleft_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        bluerov2/camerabackleft_link_optical:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        bluerov2/camerabackright_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        bluerov2/camerabackright_link_optical:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         bluerov2/cameraleft_link:
           Alpha: 1
           Show Axes: false
@@ -128,6 +147,10 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        bluerov2/imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         bluerov2/pressure_link:
           Alpha: 1
           Show Axes: false
@@ -203,7 +226,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: map
+    Fixed Frame: bluerov2/odomrtab
     Frame Rate: 30
   Name: root
   Tools:
@@ -235,17 +258,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 7.328293800354004
-        Y: -9.02976131439209
-        Z: 31.380422592163086
+        X: 14.674710273742676
+        Y: -12.955300331115723
+        Z: 7.5825605392456055
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.2553986608982086
+      Pitch: 0.245398610830307
       Target Frame: bluerov2/cameraleft_link
-      Yaw: 5.063653469085693
+      Yaw: 4.30364990234375
     Saved: ~
 Window Geometry:
   Displays:
@@ -263,5 +286,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1267
-  X: 46
-  Y: 1129
+  X: 1680
+  Y: 129

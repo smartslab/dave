@@ -27,21 +27,21 @@
     <gazebo reference="task_vis/task_${number}">
       <is_static>true</is_static>
     </gazebo>
-    <!--<gazebo reference="taskvisualizer/task_${number}">
+    <gazebo reference="taskvisualizer/task_${number}">
       <material value="Gazebo/${color}Glow"/>
-    </gazebo> -->
+    </gazebo> 
     
     <joint name="taskvisualizer/task_${number}_joint" type="fixed">
       <parent link="world"/>
       <child link="taskvisualizer/task_${number}"/>
     </joint>
     
-    <gazebo reference='taskvisualizer/task_${number}'>
+    <!--<gazebo reference='taskvisualizer/task_${number}'>
     <visual>
       <plugin name="gazebo_ros_model_color" filename="libgazebo_ros_model_color.so">
-        <robotNamespace>/taskvisualizer/task_${number}</robotNamespace> <!-- Robot namespace -->
-        <serviceName>/task${number}_color</serviceName> <!-- Service topic name-->
-        <color>1.0 1.0 1.0 1.0</color> <!-- Default Color -->
+        <robotNamespace>/taskvisualizer/task_${number}</robotNamespace> 
+        <serviceName>/task${number}_color</serviceName> 
+        <color>1.0 1.0 1.0 1.0</color> 
       </plugin>
     </visual>
   </gazebo>
@@ -49,7 +49,7 @@
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/taskvisualizer/task_${number}</robotNamespace>
     </plugin>
-  </gazebo>
+  </gazebo>-->
     
   </xacro:macro>   
 

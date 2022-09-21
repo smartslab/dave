@@ -29,71 +29,71 @@
   
   <link name="world"/>
   
-  <!-- Options for color are: Red, Blue, Yellow, Green, White, Purple, Turquoise. Gazebo stores materials at 
+  <!-- Options for color are: Red, Blue, Yellow, Green, White, Purple(more of a pink really), Turquoise (cyan). Gazebo stores materials at 
   /usr/share/gazebo-11/media/materials/scripts/gazebo.material -->
   
   <xacro:task_vis 
-    x="0" 
+    x="-5" 
     y="-8" 
     z="-17" 
-    color="White" 
-    number="1">
+    color="Blue" 
+    number="11">
   </xacro:task_vis>
   <xacro:task_vis 
     x="-15" 
     y="-8" 
     z="-17" 
-    color="White" 
-    number="2">
+    color="Blue" 
+    number="12">
   </xacro:task_vis>
   <xacro:task_vis 
-    x="15" 
+    x="-25" 
     y="-8" 
     z="-17" 
-    color="White" 
-    number="3">
+    color="Blue" 
+    number="13">
   </xacro:task_vis>
   <xacro:task_vis 
-    x="0" 
+    x="-10" 
     y="-13" 
     z="-30" 
-    color="White" 
-    number="4">
+    color="Turquoise" 
+    number="21">
   </xacro:task_vis>
   <xacro:task_vis 
-    x="20.5" 
+    x="-30" 
     y="-13" 
     z="-30"  
-    color="White" 
-    number="5">
+    color="Turquoise" 
+    number="22">
   </xacro:task_vis>
   <xacro:task_vis 
     x="-20.5" 
     y="-13" 
     z="-30"  
-    color="White" 
-    number="6">
+    color="Turquoise" 
+    number="23">
   </xacro:task_vis>
   <xacro:task_vis 
-    x="0" 
-    y="-8" 
-    z="-44" 
-    color="White" 
-    number="7">
+    x="-8" 
+    y="-12" 
+    z="-23"
+    color="Yellow" 
+    number="31">
   </xacro:task_vis>
   <xacro:task_vis 
     x="-15" 
-    y="-8" 
-    z="-44" 
-    color="White" 
-    number="8">
+    y="-12" 
+    z="-23" 
+    color="Yellow" 
+    number="32">
   </xacro:task_vis>
   <xacro:task_vis 
-    x="15" 
-    y="-8" 
-    z="-44" 
-    color="White" 
-    number="9">
+    x="-22" 
+    y="-12" 
+    z="-23"
+    color="Yellow" 
+    number="33">
   </xacro:task_vis>
 
   
