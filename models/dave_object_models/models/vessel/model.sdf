@@ -23,7 +23,7 @@
         <pose>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>/home/marina-ruediger/sim_ws/src/dave/models/dave_object_models/models/vessel/vessel.stl</uri>
+            <uri>/home/smartslab/uuv_ws/src/dave/models/dave_object_models/models/vessel/vessel.stl</uri>
             <scale>2 2 2</scale>
           </mesh>
         </geometry>
@@ -31,7 +31,7 @@
           <lighting>1</lighting>
           <script>
             <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Black</name>
+            <name>Gazebo/FlatBlack</name>
           </script>
           <!--<shader type='pixel'>
             <normal_map>__default__</normal_map>

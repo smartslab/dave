@@ -55,44 +55,44 @@
   </xacro:task_vis>
   <xacro:task_vis 
     x="-10" 
-    y="-13" 
+    y="-15" 
     z="-30" 
-    color="Turquoise" 
+    color="Yellow" 
     number="21">
   </xacro:task_vis>
   <xacro:task_vis 
     x="-30" 
-    y="-13" 
+    y="-15" 
     z="-30"  
-    color="Turquoise" 
+    color="Yellow" 
     number="22">
   </xacro:task_vis>
   <xacro:task_vis 
     x="-20.5" 
-    y="-13" 
+    y="-15" 
     z="-30"  
-    color="Turquoise" 
+    color="Yellow" 
     number="23">
   </xacro:task_vis>
   <xacro:task_vis 
     x="-8" 
     y="-12" 
     z="-23"
-    color="Yellow" 
+    color="Turquoise" 
     number="31">
   </xacro:task_vis>
   <xacro:task_vis 
     x="-15" 
     y="-12" 
     z="-23" 
-    color="Yellow" 
+    color="Turquoise" 
     number="32">
   </xacro:task_vis>
   <xacro:task_vis 
     x="-22" 
     y="-12" 
     z="-23"
-    color="Yellow" 
+    color="Turquoise" 
     number="33">
   </xacro:task_vis>
 
